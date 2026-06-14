@@ -6,29 +6,49 @@ import NotFound from "@/pages/not-found";
 
 import { AppLayout } from "@/components/layout/AppLayout";
 import Home from "@/pages/home";
+import Dashboard from "@/pages/dashboard";
+import Workouts from "@/pages/workouts";
+import Nutrition from "@/pages/nutrition";
+import Goals from "@/pages/goals";
+import Progress from "@/pages/progress";
+import Community from "@/pages/community";
+import Trainers from "@/pages/trainers";
+import MobileApp from "@/pages/mobile-app";
+import Contact from "@/pages/contact";
 
 const queryClient = new QueryClient();
-
-// Placeholder pages
-function Dashboard() { return <div>Dashboard</div>; }
-function Workouts() { return <div>Workouts</div>; }
-function Nutrition() { return <div>Nutrition</div>; }
-function Goals() { return <div>Goals</div>; }
-function Progress() { return <div>Progress</div>; }
-function Community() { return <div>Community</div>; }
-function Trainers() { return <div>Trainers</div>; }
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Home} />
-      <Route path="/dashboard"><AppLayout><Dashboard /></AppLayout></Route>
-      <Route path="/workouts"><AppLayout><Workouts /></AppLayout></Route>
-      <Route path="/nutrition"><AppLayout><Nutrition /></AppLayout></Route>
-      <Route path="/goals"><AppLayout><Goals /></AppLayout></Route>
-      <Route path="/progress"><AppLayout><Progress /></AppLayout></Route>
-      <Route path="/community"><AppLayout><Community /></AppLayout></Route>
-      <Route path="/trainers"><AppLayout><Trainers /></AppLayout></Route>
+      <Route path="/dashboard">
+        <AppLayout><Dashboard /></AppLayout>
+      </Route>
+      <Route path="/workouts">
+        <AppLayout><Workouts /></AppLayout>
+      </Route>
+      <Route path="/nutrition">
+        <AppLayout><Nutrition /></AppLayout>
+      </Route>
+      <Route path="/goals">
+        <AppLayout><Goals /></AppLayout>
+      </Route>
+      <Route path="/progress">
+        <AppLayout><Progress /></AppLayout>
+      </Route>
+      <Route path="/community">
+        <AppLayout><Community /></AppLayout>
+      </Route>
+      <Route path="/trainers">
+        <AppLayout><Trainers /></AppLayout>
+      </Route>
+      <Route path="/mobile-app">
+        <AppLayout><MobileApp /></AppLayout>
+      </Route>
+      <Route path="/contact">
+        <AppLayout><Contact /></AppLayout>
+      </Route>
       <Route component={NotFound} />
     </Switch>
   );

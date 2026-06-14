@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import { Link, useLocation } from "wouter";
 import {
   Sidebar,
@@ -13,31 +14,57 @@ import {
   SidebarProvider,
   SidebarTrigger,
 } from "@/components/ui/sidebar";
-import { 
-  Activity, 
-  Dumbbell, 
-  Apple, 
-  Target, 
-  TrendingUp, 
-  Users, 
+import { Button } from "@/components/ui/button";
+import {
+  Activity,
+  Dumbbell,
+  Apple,
+  Target,
+  TrendingUp,
+  Users,
   UserCircle,
-  LogOut,
-  Home
+  Home,
+  Smartphone,
+  HeadphonesIcon,
+  Sun,
+  Moon,
 } from "lucide-react";
+
+const NAV_ITEMS = [
+  { title: "Home", url: "/", icon: Home },
+  { title: "Dashboard", url: "/dashboard", icon: Activity },
+  { title: "Workouts", url: "/workouts", icon: Dumbbell },
+  { title: "Nutrition", url: "/nutrition", icon: Apple },
+  { title: "Goals", url: "/goals", icon: Target },
+  { title: "Progress", url: "/progress", icon: TrendingUp },
+  { title: "Community", url: "/community", icon: Users },
+  { title: "Trainers", url: "/trainers", icon: UserCircle },
+  { title: "Mobile App", url: "/mobile-app", icon: Smartphone },
+  { title: "Contact", url: "/contact", icon: HeadphonesIcon },
+];
+
+function ThemeToggle() {
+  const [dark, setDark] = useState(true);
+
+  useEffect(() => {
+    document.documentElement.classList.toggle("light-mode", !dark);
+  }, [dark]);
+
+  return (
+    <Button
+      variant="ghost"
+      size="icon"
+      onClick={() => setDark((d) => !d)}
+      className="h-8 w-8 text-muted-foreground hover:text-foreground"
+      title={dark ? "Switch to light mode" : "Switch to dark mode"}
+    >
+      {dark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
+    </Button>
+  );
+}
 
 export function AppSidebar() {
   const [location] = useLocation();
-
-  const navItems = [
-    { title: "Home", url: "/", icon: Home },
-    { title: "Dashboard", url: "/dashboard", icon: Activity },
-    { title: "Workouts", url: "/workouts", icon: Dumbbell },
-    { title: "Nutrition", url: "/nutrition", icon: Apple },
-    { title: "Goals", url: "/goals", icon: Target },
-    { title: "Progress", url: "/progress", icon: TrendingUp },
-    { title: "Community", url: "/community", icon: Users },
-    { title: "Trainers", url: "/trainers", icon: UserCircle },
-  ];
 
   return (
     <Sidebar variant="inset">
@@ -47,14 +74,19 @@ export function AppSidebar() {
           FITTRACK<span className="text-foreground">PRO</span>
         </div>
       </SidebarHeader>
+
       <SidebarContent>
         <SidebarGroup>
-          <SidebarGroupLabel>Menu</SidebarGroupLabel>
+          <SidebarGroupLabel>Navigation</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {navItems.map((item) => (
+              {NAV_ITEMS.map((item) => (
                 <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild isActive={location === item.url} tooltip={item.title}>
+                  <SidebarMenuButton
+                    asChild
+                    isActive={location === item.url}
+                    tooltip={item.title}
+                  >
                     <Link href={item.url}>
                       <item.icon className="h-4 w-4" />
                       <span>{item.title}</span>
@@ -66,15 +98,12 @@ export function AppSidebar() {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+
       <SidebarFooter className="border-t border-border p-4">
-        <SidebarMenu>
-          <SidebarMenuItem>
-            <SidebarMenuButton className="text-muted-foreground hover:text-foreground">
-              <LogOut className="h-4 w-4" />
-              <span>Sign Out</span>
-            </SidebarMenuButton>
-          </SidebarMenuItem>
-        </SidebarMenu>
+        <div className="flex items-center justify-between">
+          <span className="text-xs text-muted-foreground">v2.0 — Dark Mode</span>
+          <ThemeToggle />
+        </div>
       </SidebarFooter>
     </Sidebar>
   );
