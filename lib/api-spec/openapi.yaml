@@ -3,13 +3,27 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: FitTrack Pro API
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: dashboard
+    description: Dashboard operations
+  - name: workouts
+    description: Workout operations
+  - name: nutrition
+    description: Nutrition operations
+  - name: goals
+    description: Goal operations
+  - name: progress
+    description: Progress analytics
+  - name: community
+    description: Community operations
+  - name: trainers
+    description: Trainer operations
 paths:
   /healthz:
     get:
@@ -24,6 +38,401 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /dashboard/stats:
+    get:
+      operationId: getDashboardStats
+      tags: [dashboard]
+      summary: Get daily dashboard stats
+      responses:
+        "200":
+          description: Dashboard statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+    patch:
+      operationId: updateDashboardStats
+      tags: [dashboard]
+      summary: Update daily stats
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/DashboardStatsInput"
+      responses:
+        "200":
+          description: Updated stats
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DashboardStats"
+
+  /workouts:
+    get:
+      operationId: listWorkouts
+      tags: [workouts]
+      summary: List workout plans
+      responses:
+        "200":
+          description: List of workouts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Workout"
+    post:
+      operationId: createWorkout
+      tags: [workouts]
+      summary: Create a workout plan
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkoutInput"
+      responses:
+        "201":
+          description: Created workout
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workout"
+
+  /workouts/{id}:
+    get:
+      operationId: getWorkout
+      tags: [workouts]
+      summary: Get a workout
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Workout
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workout"
+        "404":
+          description: Not found
+    patch:
+      operationId: updateWorkout
+      tags: [workouts]
+      summary: Update a workout
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/WorkoutUpdate"
+      responses:
+        "200":
+          description: Updated workout
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Workout"
+    delete:
+      operationId: deleteWorkout
+      tags: [workouts]
+      summary: Delete a workout
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /workouts/summary:
+    get:
+      operationId: getWorkoutSummary
+      tags: [workouts]
+      summary: Get workout counts by category
+      responses:
+        "200":
+          description: Workout summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WorkoutSummary"
+
+  /meals:
+    get:
+      operationId: listMeals
+      tags: [nutrition]
+      summary: List today's meals
+      responses:
+        "200":
+          description: List of meals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Meal"
+    post:
+      operationId: createMeal
+      tags: [nutrition]
+      summary: Log a meal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MealInput"
+      responses:
+        "201":
+          description: Created meal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Meal"
+
+  /meals/{id}:
+    delete:
+      operationId: deleteMeal
+      tags: [nutrition]
+      summary: Delete a meal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /nutrition/daily:
+    get:
+      operationId: getDailyNutrition
+      tags: [nutrition]
+      summary: Get daily nutrition totals
+      responses:
+        "200":
+          description: Daily nutrition summary
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/DailyNutrition"
+
+  /goals:
+    get:
+      operationId: listGoals
+      tags: [goals]
+      summary: List fitness goals
+      responses:
+        "200":
+          description: List of goals
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Goal"
+    post:
+      operationId: createGoal
+      tags: [goals]
+      summary: Create a fitness goal
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoalInput"
+      responses:
+        "201":
+          description: Created goal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Goal"
+
+  /goals/{id}:
+    patch:
+      operationId: updateGoal
+      tags: [goals]
+      summary: Update a goal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/GoalUpdate"
+      responses:
+        "200":
+          description: Updated goal
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Goal"
+    delete:
+      operationId: deleteGoal
+      tags: [goals]
+      summary: Delete a goal
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /measurements:
+    get:
+      operationId: listMeasurements
+      tags: [progress]
+      summary: List body measurements
+      responses:
+        "200":
+          description: List of measurements
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Measurement"
+    post:
+      operationId: createMeasurement
+      tags: [progress]
+      summary: Log a body measurement
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/MeasurementInput"
+      responses:
+        "201":
+          description: Created measurement
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Measurement"
+
+  /progress/weekly:
+    get:
+      operationId: getWeeklyProgress
+      tags: [progress]
+      summary: Get weekly progress chart data
+      responses:
+        "200":
+          description: Weekly progress data
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/WeeklyProgress"
+
+  /community/posts:
+    get:
+      operationId: listCommunityPosts
+      tags: [community]
+      summary: List community posts
+      responses:
+        "200":
+          description: Community posts
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/CommunityPost"
+    post:
+      operationId: createCommunityPost
+      tags: [community]
+      summary: Create a community post
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CommunityPostInput"
+      responses:
+        "201":
+          description: Created post
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommunityPost"
+
+  /community/leaderboard:
+    get:
+      operationId: getLeaderboard
+      tags: [community]
+      summary: Get fitness leaderboard
+      responses:
+        "200":
+          description: Leaderboard
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/LeaderboardEntry"
+
+  /trainers:
+    get:
+      operationId: listTrainers
+      tags: [trainers]
+      summary: List trainers
+      responses:
+        "200":
+          description: List of trainers
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Trainer"
+
+  /trainers/{id}/book:
+    post:
+      operationId: bookTrainer
+      tags: [trainers]
+      summary: Book a trainer consultation
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/BookingInput"
+      responses:
+        "201":
+          description: Booking created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Booking"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +443,379 @@ components:
       required:
         - status
 
+    DashboardStats:
+      type: object
+      required: [id, steps, caloriesBurned, waterIntakeMl, sleepHours, heartRate, bmiValue, weightKg, date]
+      properties:
+        id:
+          type: integer
+        steps:
+          type: integer
+        caloriesBurned:
+          type: integer
+        waterIntakeMl:
+          type: integer
+        sleepHours:
+          type: number
+        heartRate:
+          type: integer
+        bmiValue:
+          type: number
+        weightKg:
+          type: number
+        date:
+          type: string
+
+    DashboardStatsInput:
+      type: object
+      properties:
+        steps:
+          type: integer
+        caloriesBurned:
+          type: integer
+        waterIntakeMl:
+          type: integer
+        sleepHours:
+          type: number
+        heartRate:
+          type: integer
+        bmiValue:
+          type: number
+        weightKg:
+          type: number
+
+    Workout:
+      type: object
+      required: [id, name, category, durationMinutes, exercises, createdAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string
+          enum: [Cardio, Strength, Yoga, HIIT]
+        durationMinutes:
+          type: integer
+        exercises:
+          type: string
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string
+
+    WorkoutInput:
+      type: object
+      required: [name, category, durationMinutes, exercises]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        category:
+          type: string
+          enum: [Cardio, Strength, Yoga, HIIT]
+        durationMinutes:
+          type: integer
+        exercises:
+          type: string
+        notes:
+          type: string
+
+    WorkoutUpdate:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        category:
+          type: string
+          enum: [Cardio, Strength, Yoga, HIIT]
+        durationMinutes:
+          type: integer
+        exercises:
+          type: string
+        notes:
+          type: string
+
+    WorkoutSummary:
+      type: object
+      required: [cardio, strength, yoga, hiit, totalMinutes, totalSessions]
+      properties:
+        cardio:
+          type: integer
+        strength:
+          type: integer
+        yoga:
+          type: integer
+        hiit:
+          type: integer
+        totalMinutes:
+          type: integer
+        totalSessions:
+          type: integer
+
+    Meal:
+      type: object
+      required: [id, name, calories, protein, carbs, fat, mealType, loggedAt]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        calories:
+          type: integer
+        protein:
+          type: number
+        carbs:
+          type: number
+        fat:
+          type: number
+        mealType:
+          type: string
+          enum: [Breakfast, Lunch, Dinner, Snack]
+        loggedAt:
+          type: string
+
+    MealInput:
+      type: object
+      required: [name, calories, protein, carbs, fat, mealType]
+      properties:
+        name:
+          type: string
+          minLength: 1
+        calories:
+          type: integer
+        protein:
+          type: number
+        carbs:
+          type: number
+        fat:
+          type: number
+        mealType:
+          type: string
+          enum: [Breakfast, Lunch, Dinner, Snack]
+
+    DailyNutrition:
+      type: object
+      required: [totalCalories, totalProtein, totalCarbs, totalFat, calorieGoal]
+      properties:
+        totalCalories:
+          type: integer
+        totalProtein:
+          type: number
+        totalCarbs:
+          type: number
+        totalFat:
+          type: number
+        calorieGoal:
+          type: integer
+
+    Goal:
+      type: object
+      required: [id, title, type, targetValue, currentValue, unit, deadline, achieved, createdAt]
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        type:
+          type: string
+          enum: [WeightLoss, MuscleGain, Steps, Cardio, Custom]
+        targetValue:
+          type: number
+        currentValue:
+          type: number
+        unit:
+          type: string
+        deadline:
+          type: ["string", "null"]
+        achieved:
+          type: boolean
+        createdAt:
+          type: string
+
+    GoalInput:
+      type: object
+      required: [title, type, targetValue, currentValue, unit]
+      properties:
+        title:
+          type: string
+          minLength: 1
+        type:
+          type: string
+          enum: [WeightLoss, MuscleGain, Steps, Cardio, Custom]
+        targetValue:
+          type: number
+        currentValue:
+          type: number
+        unit:
+          type: string
+        deadline:
+          type: string
+
+    GoalUpdate:
+      type: object
+      properties:
+        title:
+          type: string
+        currentValue:
+          type: number
+        achieved:
+          type: boolean
+        deadline:
+          type: string
+
+    Measurement:
+      type: object
+      required: [id, weightKg, chestCm, waistCm, hipsCm, loggedAt]
+      properties:
+        id:
+          type: integer
+        weightKg:
+          type: number
+        chestCm:
+          type: ["number", "null"]
+        waistCm:
+          type: ["number", "null"]
+        hipsCm:
+          type: ["number", "null"]
+        loggedAt:
+          type: string
+
+    MeasurementInput:
+      type: object
+      required: [weightKg]
+      properties:
+        weightKg:
+          type: number
+        chestCm:
+          type: number
+        waistCm:
+          type: number
+        hipsCm:
+          type: number
+
+    WeeklyProgress:
+      type: object
+      required: [days]
+      properties:
+        days:
+          type: array
+          items:
+            $ref: "#/components/schemas/DayProgress"
+
+    DayProgress:
+      type: object
+      required: [day, steps, caloriesBurned, workoutMinutes]
+      properties:
+        day:
+          type: string
+        steps:
+          type: integer
+        caloriesBurned:
+          type: integer
+        workoutMinutes:
+          type: integer
+
+    CommunityPost:
+      type: object
+      required: [id, authorName, content, likes, createdAt]
+      properties:
+        id:
+          type: integer
+        authorName:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        content:
+          type: string
+        likes:
+          type: integer
+        createdAt:
+          type: string
+
+    CommunityPostInput:
+      type: object
+      required: [authorName, content]
+      properties:
+        authorName:
+          type: string
+          minLength: 1
+        content:
+          type: string
+          minLength: 1
+
+    LeaderboardEntry:
+      type: object
+      required: [rank, name, points, steps, workoutsCompleted]
+      properties:
+        rank:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        points:
+          type: integer
+        steps:
+          type: integer
+        workoutsCompleted:
+          type: integer
+
+    Trainer:
+      type: object
+      required: [id, name, specialty, rating, reviewCount, hourlyRate, bio]
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        avatarUrl:
+          type: ["string", "null"]
+        specialty:
+          type: string
+        rating:
+          type: number
+        reviewCount:
+          type: integer
+        hourlyRate:
+          type: integer
+        bio:
+          type: string
+        available:
+          type: boolean
+
+    BookingInput:
+      type: object
+      required: [clientName, date, time]
+      properties:
+        clientName:
+          type: string
+          minLength: 1
+        date:
+          type: string
+        time:
+          type: string
+        notes:
+          type: string
+
+    Booking:
+      type: object
+      required: [id, trainerId, clientName, date, time, status, createdAt]
+      properties:
+        id:
+          type: integer
+        trainerId:
+          type: integer
+        clientName:
+          type: string
+        date:
+          type: string
+        time:
+          type: string
+        status:
+          type: string
+        notes:
+          type: ["string", "null"]
+        createdAt:
+          type: string

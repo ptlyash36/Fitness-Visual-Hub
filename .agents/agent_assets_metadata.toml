@@ -1,0 +1,44 @@
+uploads = []
+generated = []
+
+[[outputs]]
+id = "NyFEWBUdUop-3VOE1ok8-"
+uri = "file://artifacts/fittrack-pro/public/images/hero-gym.jpg"
+type = "image"
+title = "hero background gym workout athlete"
+
+[[outputs]]
+id = "v7syV6i8VknhpYcXJEeQJ"
+uri = "file://artifacts/fittrack-pro/public/images/feature-running.jpg"
+type = "image"
+title = "person running outdoor fitness"
+
+[[outputs]]
+id = "6xqpgsIR1ZxDGgpHnFCDF"
+uri = "file://artifacts/fittrack-pro/public/images/feature-food.jpg"
+type = "image"
+title = "healthy nutrition food bowl"
+
+[[outputs]]
+id = "Ks4P0HHZ66Hg0QgJvDZoU"
+uri = "file://artifacts/fittrack-pro/public/images/feature-yoga.jpg"
+type = "image"
+title = "yoga meditation fitness"
+
+[[outputs]]
+id = "aJocEJx6LqinR_alxC4J-"
+uri = "file://artifacts/fittrack-pro/public/images/trainer-1.jpg"
+type = "image"
+title = "professional fitness trainer portrait"
+
+[[outputs]]
+id = "V-30R3zn0jbwfDaN7qYOs"
+uri = "file://artifacts/fittrack-pro/public/images/trainer-2.jpg"
+type = "image"
+title = "female fitness trainer portrait"
+
+[[outputs]]
+id = "mtW0dMcrEqx1xXDys8-28"
+uri = "file://artifacts/fittrack-pro/public/images/trainer-3.jpg"
+type = "image"
+title = "muscular male fitness trainer portrait"

@@ -1,0 +1,97 @@
+Design and develop a modern, responsive Fit Tracking Website named "FitTrack Pro" with an attractive fitness-themed UI. The website should help users monitor their health, workouts, nutrition, and fitness goals.
+Design Requirements
+Modern, clean, and professional fitness-inspired design.
+Color scheme: Dark theme with blue, green, and white accents.
+Fully responsive for desktop, tablet, and mobile devices.
+Smooth animations and interactive elements.
+Use high-quality fitness-related images throughout the website.
+Suitable Images
+Hero banner showing people exercising in a gym.
+Fitness trainer coaching a client.
+Running and cardio workout images.
+Healthy meal and nutrition images.
+Smartwatch fitness tracking dashboard.
+Yoga and meditation session images.
+Before-and-after transformation success stories.
+Mobile app fitness tracking screenshots.
+Website Sections
+1. Home Page
+Hero section with motivational slogan: "Track Your Fitness Journey, Achieve Your Goals."
+Call-to-action buttons:
+Get Started
+Join Now
+Animated fitness statistics counter.
+2. User Dashboard
+Daily step count.
+Calories burned.
+Water intake tracker.
+Sleep tracking.
+Heart rate monitoring.
+BMI calculator.
+Weight progress chart.
+3. Workout Tracker
+Create workout plans.
+Log exercises.
+Track workout duration.
+Exercise categories:
+Cardio
+Strength Training
+Yoga
+HIIT
+Progress visualization with charts.
+4. Nutrition Tracker
+Daily calorie intake.
+Meal planner.
+Food database search.
+Macronutrient tracking:
+Protein
+Carbohydrates
+Fats
+Water consumption tracking.
+5. Goal Management
+Set fitness goals.
+Weight loss goals.
+Muscle gain goals.
+Daily step goals.
+Weekly progress reports.
+Achievement badges and rewards.
+6. Progress Analytics
+Interactive charts and graphs.
+Weekly, monthly, and yearly reports.
+Body measurements tracking.
+Fitness score calculation.
+7. Community Section
+User discussion forum.
+Fitness challenges.
+Success stories.
+Leaderboard.
+8. Trainer Section
+Trainer profiles.
+Online consultation booking.
+Video workout sessions.
+9. Mobile App Showcase
+Screenshots of the mobile application.
+Download buttons for Android and iOS.
+10. Contact & Support
+Contact form.
+FAQ section.
+Live chat support.
+Social media links.
+Additional Features
+User registration and login.
+Google/Facebook authentication.
+Dark/Light mode toggle.
+Push notifications for workout reminders.
+AI-powered fitness recommendations.
+Integration with fitness wearables.
+Real-time progress synchronization.
+Secure user data storage.
+Technologies
+Frontend: HTML5, CSS3, JavaScript, React.js
+Backend: Node.js / Express.js
+Database: MongoDB
+Charts: Chart.js
+Authentication: JWT & OAuth
+Responsive Framework: Bootstrap or Tailwind CSS
+Expected Output
+Create a visually appealing, fully responsive fitness tracking website with professional fitness images, interactive dashboards, progress charts, workout tracking, nutrition management, goal setting, and modern user experience.
